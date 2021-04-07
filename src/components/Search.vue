@@ -1,12 +1,11 @@
 <template>
 <div>
-    <form @submit.prevent="searchSymbol">
+    <form @submit.prevent="searchSymbol(); emitData();">
       <input type="text" v-model="ticker" name="ticker" placeholder="AAPL">
       <input type="submit" value="FOMO-TIZE ME CAPTAIN" class="btn-primary m-2">
   </form>
   <div class="container">
       {{this.ticker}}
-      <div class="stock_name"> {{stockprice}}</div>
     </div>
 </div>
 </template>
@@ -19,18 +18,16 @@ export default {
     data() {
         return {
             ticker:'',
-            stockprice:0,
+            stockPrice:0,
+            firstTradeDate:0,
+            tickerObject: {},
         }
     },
     methods:{
-        searchSymbol () {
-    //   this.url = 'https://financialmodelingprep.com/api/v3/stock/real-time-price/' + this.stock
-    //   axios.get(this.url)
-    //   .then( res => {
-    //     this.stockprice = res.data.price,
-    //     console.log(this.stockprice)
-    //   })
-    //   .catch( err => console.log(err))
+        searchAndEmit(){
+
+        },
+       searchSymbol () {
     const options = {
         method: 'GET',
         url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-historical-data',
@@ -42,16 +39,25 @@ export default {
         };
 
         axios.request(options).then(function (response) {
+            this.tickerObject = response.data;
+            this.stockPrice = response.data.prices[0].close;
+            this.firstTradeDate = response.data.firstTradeDate;
             console.log(response.data);
-        }).catch(function (error) {
+            this.$router.push('/Results');
+        }.bind(this)).catch(function (error) {
             console.error(error);
         });
-
+    }
     },
-    formatNumber(number) {
-      number = (number/1000000).toFixed(2).replace('.',',')
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-    },
+    beforeDestroy() {
+        const payload = {
+        ticker: this.ticker,
+        stockPrice: this.stockPrice,
+        firstTradeDate: this.firstTradeDate
+      }
+      console.log('payload: ' + payload);
+      console.log(payload.stockPrice)
+      this.$store.commit('setState', payload);
     }
 }
 </script>
