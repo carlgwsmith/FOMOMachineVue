@@ -4,9 +4,6 @@
       <input type="text" v-model="ticker" name="ticker" placeholder="AAPL">
       <input type="submit" value="CHECK SYMBOL" class="btn-primary m-2">
   </form>
-  <div class="container">
-      {{this.ticker}}
-    </div>
 </div>
 </template>
 
@@ -17,7 +14,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            ticker:'',
+            ticker:'AAPL',
             stockPrice:0,
             firstTradeDate:0,
             tickerObject: {},
@@ -86,7 +83,6 @@ input[type="submit" i]{
 input[type="submit" i]:focus {
     outline: none;
     border: 2px solid #5bb2ec !important;
-    border-left: none !important;
     background-color: #d2edff !important;
 }
 </style>
