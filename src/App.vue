@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> | 
-      <router-link to="/about">Result</router-link>
-    </div>
+    <ul id="nav" class="text-right">
+      <router-link to="/">Home</router-link>
+      <router-link to="/result">Results</router-link>
+      <router-link to="/about">About</router-link>
+    </ul>
     <router-view/>
   </div>
 </template>
@@ -18,14 +18,26 @@
   text-align: center;
   color: #2c3e50;
 }
-
+body{
+    background-color: #f7f7f7;
+}
+ul#nav a{
+  display: inline;
+  padding: 10px 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  margin: 10px;
+      box-shadow: 2px 2px 6px #eaeaea, -6px -6px 5px #ffffff;
+}
 #nav {
   padding: 30px;
 }
-
+.text-right{
+  text-align:right;
+}
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #adadad;
   text-decoration: none !important;
 }
 
@@ -34,8 +46,7 @@
   background: -webkit-linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
   background: -moz-linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
   background: linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  border-bottom:2px solid rgb(174, 100, 243);
+  color:white;
+  box-shadow: 2px 2px 5px rgb(187, 187, 187);
 }
 </style>

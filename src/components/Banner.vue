@@ -1,5 +1,8 @@
 <template>
-  <h1 class="bannerText">{{label}}</h1>
+<div>
+    <h1 class="bannerText">{{label}}</h1>
+    <p>Submit a stock markt ticker and we'll get your FOMO Results</p>
+</div>
 </template>
 
 <script>
@@ -23,5 +26,9 @@ export default {
     background: linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin-bottom:10px;
+}
+p{
+    font-size:1.3em;
 }
 </style>
