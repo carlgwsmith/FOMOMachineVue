@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Banner label="FOMO MACHINE"></Banner>
+    <Banner boldLabel="FOMO" thinLabel="MACHINE"></Banner>
     <Search></Search>
   </div>
 </template>

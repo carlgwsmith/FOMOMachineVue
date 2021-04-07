@@ -1,7 +1,7 @@
 <template>
 <div>
-    <h1 class="bannerText">{{label}}</h1>
-    <p>Submit a stock markt ticker and we'll get your FOMO Results</p>
+    <h1 class="bannerText">{{boldLabel}}<span class="thin">{{thinLabel}}</span></h1>
+    <p>Submit a stock market ticker and we'll get your FOMO Results</p>
 </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
 
     }),
     props: {
-        label: String,
+        boldLabel: String,
+        thinLabel: String,
     }
 }
 </script>
@@ -27,6 +28,10 @@ export default {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom:10px;
+}
+.thin{
+    font-family: 'MuseoModerno', cursive;
+    font-weight:200;
 }
 p{
     font-size:1.3em;
