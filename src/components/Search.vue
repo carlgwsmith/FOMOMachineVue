@@ -2,7 +2,7 @@
 <div>
     <form @submit.prevent="searchSymbol(); emitData();">
       <input type="text" v-model="ticker" name="ticker" placeholder="AAPL">
-      <input type="submit" value="FOMO-TIZE ME CAPTAIN" class="btn-primary m-2">
+      <input type="submit" value="CHECK SYMBOL" class="btn-primary m-2">
   </form>
   <div class="container">
       {{this.ticker}}
@@ -63,5 +63,30 @@ export default {
 </script>
 
 <style>
-
+input[type="text" i]{
+    border: 2px solid #e0dfdf;
+    padding: 15px;
+    border-radius: 10px 0 0 10px;
+    background-color: #f3f3f3;
+}
+input[type="text" i]:focus {
+    outline: none;
+    border: 2px solid #c3cdd4 !important;
+    background-color: #e0e0e0 !important;
+}
+input[type="submit" i]{
+    padding: 15px;
+    border-radius: 0 10px 10px 0;
+    border: 2px solid #e0dfdf;
+    border-left: none !important;
+    background-color: #69f2d9;
+    color: #5a5959;
+    font-weight: 700;
+}
+input[type="submit" i]:focus {
+    outline: none;
+    border: 2px solid #5bb2ec !important;
+    border-left: none !important;
+    background-color: #d2edff !important;
+}
 </style>
