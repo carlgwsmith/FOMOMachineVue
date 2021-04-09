@@ -1,6 +1,6 @@
 <template>
 <div>
-    <form @submit.prevent="searchSymbol(); emitData();">
+    <form @submit.prevent="searchSymbol();">
       <input type="text" v-model="ticker" name="ticker" placeholder="AAPL">
       <input type="submit" value="CHECK SYMBOL" class="btn-primary m-2">
   </form>
@@ -22,7 +22,6 @@ export default {
     },
     methods:{
         searchAndEmit(){
-
         },
        searchSymbol () {
     const options = {
@@ -39,7 +38,6 @@ export default {
             this.tickerObject = response.data;
             this.stockPrice = response.data.prices[0].close;
             this.firstTradeDate = response.data.firstTradeDate;
-            console.log(response.data);
             this.$router.push('/Results');
         }.bind(this)).catch(function (error) {
             console.error(error);
@@ -52,8 +50,6 @@ export default {
         stockPrice: this.stockPrice,
         firstTradeDate: this.firstTradeDate
       }
-      console.log('payload: ' + payload);
-      console.log(payload.stockPrice)
       this.$store.commit('setState', payload);
     }
 }

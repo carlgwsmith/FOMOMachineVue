@@ -3,20 +3,29 @@
     Symbol: {{ticker}}
     Today's Price: {{stockPrice}}
     First Traded on: {{firstTradeDateReadable}}
-    {{getIpo}}
+    Website:{{stockWebsite}}
+    <logo-finder/>
 
 </div>
 </template>
 
 <script>
+import axios from 'axios';
+import LogoFinder from '../components/LogoFinder.vue';
+
 export default {
     data: () => ({
         ticker:'',
         stockPrice:0,
         firstTradeDate:0,
-        firstTradeDateReadable:''
+        firstTradeDateReadable:'',
         ipoClosePrice: 0,
+        stockWebsite:'',
+        stockLogo:''
     }),
+    components:{
+        LogoFinder
+    },
     computed: {
     returnState () {
         return this.$store.getters.getState;
@@ -26,38 +35,81 @@ export default {
     this.ticker = this.$store.getters.getTicker;
     this.stockPrice = this.$store.getters.getStockPrice;
     this.firstTradeDate = this.$store.getters.getFirstTradeDate;
+    this.getStockWebsite();
     },
     updated() {
             var myDate = new Date(this.firstTradeDate *1000);
-            console.log('Date:' + myDate);
             this.firstTradeDateReadable = myDate.toLocaleString();
+            const payload = {
+                stockWebsite: this.stockWebsite
+            }
+            this.$store.commit('setStockWebsite', payload);
     },
     methods: {
-        getIpo (){
-            //converter firstTradeDate for use in API
-            var s = new Date(this.firstTradeDate).toISOString();
-            var res = s.substring(0, 10)
-            console.log('RES: '+ res);
+        // getIpo (){
+        //     //converter firstTradeDate for use in API
+        //     var s = new Date(this.firstTradeDate).toISOString();
+        //     var res = s.substring(0, 10)
+        //     console.log('RES: '+ res);
 
+        //     const options = {
+        //     method: 'GET',
+        //     //url: 'https://eodhistoricaldata.com/api/eod/' + this.ticker + '.US?api_token=606d1b402eb7b6.11619858',
+        //     url:'https://eodhistoricaldata.com/api/eod/'+this.ticker+'.US?from='+res+'&to='+res+'&api_token=606d1b402eb7b6.11619858&period=d&fmt=json'
+        //     headers: {
+        //         'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+        //         'x-rapidapi-host': 'eod-historical-data.p.rapidapi.com'
+        //     }
+        //     };
+
+        //     axios.request(options).then(function (response) {
+        //         console.log(response.data);
+
+        //     }).catch(function (error) {
+        //         console.error(error);
+        //     });
+        // }
+
+        getStockWebsite(){
             const options = {
-            method: 'GET',
-            //url: 'https://eodhistoricaldata.com/api/eod/' + this.ticker + '.US?api_token=606d1b402eb7b6.11619858',
-            url:'https://eodhistoricaldata.com/api/eod/'+this.ticker+'.US?from='+res+'&to='+res+'&api_token=606d1b402eb7b6.11619858&period=d&fmt=json'
-            headers: {
-                'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
-                'x-rapidapi-host': 'eod-historical-data.p.rapidapi.com'
-            }
-            };
+                method: 'GET',
+                url: 'https://yahoo-finance-low-latency.p.rapidapi.com/v11/finance/quoteSummary/' + this.ticker,
+                params: {modules: 'defaultKeyStatistics,assetProfile'},
+                headers: {
+                    'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+                    'x-rapidapi-host': 'yahoo-finance-low-latency.p.rapidapi.com'
+                }
+                };
 
-            axios.request(options).then(function (response) {
-                console.log(response.data);
+                axios.request(options).then(function (response) {
+                    this.stockWebsite = response.data.quoteSummary.result[0].assetProfile.website;
+                }.bind(this)).catch(function (error) {
+                    console.error(error);
+                });
+        },
+        // getLogoUrl(){
+        //     //var shortSite = this.stockWebsite.substring(7);
+        //     var shortSite = 'google.com';
+        //     console.log(shortSite);
+        //     const options = {
+        //     method: 'POST',
+        //     url: 'https://api.brandfetch.io/v1/logo',
+        //     headers: {
+        //     'x-api-key': 'NYYDCkzuzN0ALpVlDLUCOA4Gr334Zq14aXHKevb0',
+        //     'content-type': 'application/json'
+        //     },
+        //     data: {domain: shortSite}
+        //     };
 
-            }).catch(function (error) {
-                console.error(error);
-            });
-        }
+        //     axios.request(options).then(function (response) {
+        //     console.log(response.data);
+        //     console.log(response.data.response.icon.image);
+        //     this.stockLogo = response.data.response.icon.image
+        //     }.bind(this)).catch(function (error) {
+        //     console.error(error);
+        //     });
+        // }
     }
-
 }
 </script>
 

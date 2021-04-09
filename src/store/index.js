@@ -8,6 +8,7 @@ export default new Vuex.Store({
     ticker:'',
     stockPrice:0,
     firstTradeDate: 0,
+    stockWebsite:'',
   },
   mutations: {
     setState(state, payload){
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     setFirstTradeDate(state, payload){
       state.firstTradeDate = payload.firstTradeDate
+    },
+    setStockWebsite(state, payload){
+      state.stockWebsite = payload.stockWebsite;
     }
   },
   actions: {
@@ -41,6 +45,9 @@ export default new Vuex.Store({
     },
     getFirstTradeDate(state){
       return state.firstTradeDate
+    },
+    getStockWebsite(state){
+      return state.stockWebsite
     }
   }
 })
