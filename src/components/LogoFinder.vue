@@ -25,7 +25,6 @@ export default {
     methods: {
         getLogoUrl(){
             var shortSite = this.stockWebsite.substring(11);
-            //var shortSite = 'www.google.com';
             console.log(shortSite);
             const options = {
             method: 'POST',
