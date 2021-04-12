@@ -1,6 +1,6 @@
 <template>
 <div>
-    <form @submit.prevent="searchSymbol();">
+    <form @submit.prevent="searchSymbol(); getStockWebsite();">
       <input type="text" v-model="ticker" name="ticker" placeholder="AAPL">
       <input type="submit" value="CHECK SYMBOL" class="btn-primary m-2">
   </form>
@@ -18,10 +18,27 @@ export default {
             stockPrice:0,
             firstTradeDate:0,
             tickerObject: {},
+            stockWebsite:'',
         }
     },
     methods:{
-        searchAndEmit(){
+        getStockWebsite(){
+            const options = {
+                method: 'GET',
+                url: 'https://yahoo-finance-low-latency.p.rapidapi.com/v11/finance/quoteSummary/' + this.ticker,
+                params: {modules: 'defaultKeyStatistics,assetProfile'},
+                headers: {
+                    'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+                    'x-rapidapi-host': 'yahoo-finance-low-latency.p.rapidapi.com'
+                }
+                };
+
+                axios.request(options).then(function (response) {
+                    console.log('does this call work?:' + response.data.quoteSummary.result[0].assetProfile.website)
+                    this.stockWebsite = response.data.quoteSummary.result[0].assetProfile.website;
+                }.bind(this)).catch(function (error) {
+                    console.error(error);
+                });
         },
        searchSymbol () {
     const options = {
@@ -48,7 +65,8 @@ export default {
         const payload = {
         ticker: this.ticker,
         stockPrice: this.stockPrice,
-        firstTradeDate: this.firstTradeDate
+        firstTradeDate: this.firstTradeDate,
+        stockWebsite: this.stockWebsite
       }
       this.$store.commit('setState', payload);
     }

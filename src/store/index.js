@@ -15,6 +15,7 @@ export default new Vuex.Store({
       state.ticker = payload.ticker;
       state.stockPrice = payload.stockPrice;
       state.firstTradeDate = payload.firstTradeDate;
+      state.stockWebsite = payload.stockWebsite;
     },
     setTicker(state, payload){
       state.ticker = payload.ticker

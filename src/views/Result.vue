@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+//import axios from 'axios';
 import LogoFinder from '../components/LogoFinder.vue';
 
 export default {
@@ -35,15 +35,16 @@ export default {
     this.ticker = this.$store.getters.getTicker;
     this.stockPrice = this.$store.getters.getStockPrice;
     this.firstTradeDate = this.$store.getters.getFirstTradeDate;
-    this.getStockWebsite();
+    this.stockWebsite = this.$store.getters.getStockWebsite;
+    //this.getStockWebsite();
     },
     updated() {
             var myDate = new Date(this.firstTradeDate *1000);
             this.firstTradeDateReadable = myDate.toLocaleString();
-            const payload = {
-                stockWebsite: this.stockWebsite
-            }
-            this.$store.commit('setStockWebsite', payload);
+            // const payload = {
+            //     stockWebsite: this.stockWebsite
+            // }
+            // this.$store.commit('setStockWebsite', payload);
     },
     methods: {
         // getIpo (){
@@ -70,23 +71,23 @@ export default {
         //     });
         // }
 
-        getStockWebsite(){
-            const options = {
-                method: 'GET',
-                url: 'https://yahoo-finance-low-latency.p.rapidapi.com/v11/finance/quoteSummary/' + this.ticker,
-                params: {modules: 'defaultKeyStatistics,assetProfile'},
-                headers: {
-                    'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
-                    'x-rapidapi-host': 'yahoo-finance-low-latency.p.rapidapi.com'
-                }
-                };
+        // getStockWebsite(){
+        //     const options = {
+        //         method: 'GET',
+        //         url: 'https://yahoo-finance-low-latency.p.rapidapi.com/v11/finance/quoteSummary/' + this.ticker,
+        //         params: {modules: 'defaultKeyStatistics,assetProfile'},
+        //         headers: {
+        //             'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+        //             'x-rapidapi-host': 'yahoo-finance-low-latency.p.rapidapi.com'
+        //         }
+        //         };
 
-                axios.request(options).then(function (response) {
-                    this.stockWebsite = response.data.quoteSummary.result[0].assetProfile.website;
-                }.bind(this)).catch(function (error) {
-                    console.error(error);
-                });
-        },
+        //         axios.request(options).then(function (response) {
+        //             this.stockWebsite = response.data.quoteSummary.result[0].assetProfile.website;
+        //         }.bind(this)).catch(function (error) {
+        //             console.error(error);
+        //         });
+        // },
         // getLogoUrl(){
         //     //var shortSite = this.stockWebsite.substring(7);
         //     var shortSite = 'google.com';
