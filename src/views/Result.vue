@@ -1,11 +1,18 @@
 <template>
-<div>
-    Symbol: {{ticker}}
-    Today's Price: {{stockPrice}}
-    First Traded on: {{firstTradeDateReadable}}
-    Website:{{stockWebsite}}
-    <logo-finder/>
-
+<div class="container">
+    <div class="row">
+    <div class="col-sm-6">
+        If you had invested: $1000 in {{ticker}} on {{firstTradeDateReadable}}
+        you would now have {{ipoClosePrice}}.
+    </div>
+    <div class="col-sm-6">
+        <div class="ticker-card">
+            <logo-finder/>
+            <p class="ticker">{{ticker}}</p>
+            <p class="subtitle">Current Price Per Share: <span class="price">${{stockPrice.toFixed(2)}}</span></p>
+        </div>
+    </div>
+    </div>
 </div>
 </template>
 
@@ -47,5 +54,21 @@ export default {
 </script>
 
 <style>
-
+.ticker-card{
+        background-color: #f7f7f7;
+    box-shadow: 2px 2px 6px #eaeaea, -6px -6px 5px #ffffff;
+    padding: 40px 20px;
+}
+.ticker{
+    font-size:3em;
+    font-weight:600;
+    color: #828282;
+    margin-bottom:5px;
+}
+.price{
+    font-weight:700;
+}
+.subtitle{
+    color:#828282;
+}
 </style>

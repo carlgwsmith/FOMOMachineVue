@@ -2,7 +2,7 @@
 <div>
     <form @submit.prevent="searchSymbol(); getStockWebsite();">
       <input type="text" v-model="ticker" name="ticker" placeholder="AAPL">
-      <input type="submit" value="CHECK SYMBOL" class="btn-primary m-2">
+      <input type="submit" value="CHECK SYMBOL" class="btn-primary">
   </form>
 </div>
 </template>

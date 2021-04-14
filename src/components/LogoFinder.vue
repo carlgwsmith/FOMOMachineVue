@@ -1,6 +1,6 @@
 <template>
 <div>
-    <img v-bind:src="this.stockLogo" height="50px">
+    <a :href="this.stockWebsite" target="_blank"><img v-bind:src="this.stockLogo" height="80px"></a>
     
 </div>
 </template>
@@ -11,7 +11,7 @@ import axios from 'axios';
 export default {
     data: () => ({
         stockWebsite:'',
-        stockLogo:''
+        stockLogo:'https://via.placeholder.com/50x50'
     }),
     computed: {
     returnState () {
@@ -49,5 +49,9 @@ export default {
 </script>
 
 <style>
-
+img {
+    border-radius:10px;
+    box-shadow:2px 2px 5px rgba(73, 73, 73, 0.26);
+    border:3px solid #f3f3f3;
+}
 </style>
