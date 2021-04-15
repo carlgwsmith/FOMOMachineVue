@@ -1,6 +1,6 @@
 <template>
 <div>
-    <form @submit.prevent="searchSymbol(); getStockWebsite();">
+<form @submit.prevent="searchSymbol(); getStockWebsite(); getEarlyPrice();">
       <input type="text" v-model="ticker" name="ticker" placeholder="AAPL">
       <input type="submit" value="CHECK SYMBOL" class="btn-primary">
   </form>
@@ -19,9 +19,29 @@ export default {
             firstTradeDate:0,
             tickerObject: {},
             stockWebsite:'',
+            earlyPrice:0,
+            earlyDate:'',
         }
     },
     methods:{
+        getEarlyPrice(){
+            const options = {
+                method: 'GET',
+                url: 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/hi/history/'+this.ticker+'/3mo',
+                params: {diffandsplits: 'true'},
+                headers: {
+                'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+                'x-rapidapi-host': 'yahoo-finance15.p.rapidapi.com'
+                }
+                };
+
+                axios.request(options).then(function (response) {
+                this.earlyDate = response.data.items[Object.keys(response.data.items)[0]].date;
+                this.earlyPrice = response.data.items[Object.keys(response.data.items)[0]].close;
+                }.bind(this)).catch(function (error) {
+                console.error(error);
+                });
+        },
         getStockWebsite(){
             const options = {
                 method: 'GET',
@@ -66,7 +86,9 @@ export default {
         ticker: this.ticker,
         stockPrice: this.stockPrice,
         firstTradeDate: this.firstTradeDate,
-        stockWebsite: this.stockWebsite
+        stockWebsite: this.stockWebsite,
+        earliestDate: this.earlyDate,
+        earliestPrice: this.earlyPrice
       }
       this.$store.commit('setState', payload);
     }

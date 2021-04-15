@@ -2,14 +2,15 @@
 <div class="container">
     <div class="row">
     <div class="col-sm-6">
-        If you had invested: $1000 in {{ticker}} on {{firstTradeDateReadable}}
-        you would now have {{ipoClosePrice}}.
+        If you had invested: $1000 in {{ticker}} on {{earliestDate}} at ${{earliestPrice}}
+        you would now have ${{formatPrice(earliestPrice * 1000)}}.
     </div>
     <div class="col-sm-6">
         <div class="ticker-card">
-            <logo-finder/>
+            <!-- <logo-finder/> -->
             <p class="ticker">{{ticker}}</p>
             <p class="subtitle">Current Price Per Share: <span class="price">${{stockPrice.toFixed(2)}}</span></p>
+            <p class="subtitle">First Traded on {{firstTradeDateReadable}}</p>
         </div>
     </div>
     </div>
@@ -17,7 +18,7 @@
 </template>
 
 <script>
-import LogoFinder from '../components/LogoFinder.vue';
+//import LogoFinder from '../components/LogoFinder.vue';
 
 export default {
     data: () => ({
@@ -27,10 +28,12 @@ export default {
         firstTradeDateReadable:'',
         ipoClosePrice: 0,
         stockWebsite:'',
-        stockLogo:''
+        stockLogo:'',
+        earliestDate:'',
+        earliestPrice:0,
     }),
     components:{
-        LogoFinder
+        //LogoFinder
     },
     computed: {
     returnState () {
@@ -42,13 +45,18 @@ export default {
     this.stockPrice = this.$store.getters.getStockPrice;
     this.firstTradeDate = this.$store.getters.getFirstTradeDate;
     this.stockWebsite = this.$store.getters.getStockWebsite;
+    this.earliestDate = this.$store.getters.getEarliestDate;
+    this.earliestPrice = this.$store.getters.getEarliestPrice;
     },
     updated() {
             var myDate = new Date(this.firstTradeDate *1000);
             this.firstTradeDateReadable = myDate.toLocaleString();
     },
     methods: {
-
+        formatPrice(value) {
+            let val = (value/1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }
     }
 }
 </script>
