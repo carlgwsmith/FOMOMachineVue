@@ -1,9 +1,14 @@
 <template>
 <div>
-<form @submit.prevent="searchSymbol(); getStockWebsite(); getEarlyPrice();">
-      <input type="text" v-model="ticker" name="ticker" placeholder="AAPL">
-      <input type="submit" value="CHECK SYMBOL" class="btn-primary">
-  </form>
+<b-form @submit.prevent="searchSymbol(); getStockWebsite(); getEarlyPrice(); getNews();" >
+    <b-form-group>
+        <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker">
+        <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
+    </b-form-group>
+    <b-form-group>
+        <input type="submit" value="GIVE ME FOMO" class="btn-primary color-change-3x">
+    </b-form-group>
+  </b-form>
 </div>
 </template>
 
@@ -21,6 +26,8 @@ export default {
             stockWebsite:'',
             earlyPrice:0,
             earlyDate:'',
+            fomoamount:0,
+            news:{},
         }
     },
     methods:{
@@ -60,6 +67,23 @@ export default {
                     console.error(error);
                 });
         },
+        getNews(){
+            const options = {
+                method: 'GET',
+                url: 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/ne/news/' + this.ticker,
+                headers: {
+                    'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+                    'x-rapidapi-host': 'yahoo-finance15.p.rapidapi.com'
+                }
+                };
+
+                axios.request(options).then(function (response) {
+                   this.news = response.data.item;
+                   console.log(response.data.item);
+                }.bind(this)).catch(function (error) {
+                    console.error(error);
+                });
+        },
        searchSymbol () {
     const options = {
         method: 'GET',
@@ -88,7 +112,9 @@ export default {
         firstTradeDate: this.firstTradeDate,
         stockWebsite: this.stockWebsite,
         earliestDate: this.earlyDate,
-        earliestPrice: this.earlyPrice
+        earliestPrice: this.earlyPrice,
+        fomoAmount: this.fomoamount,
+        news: this.news,
       }
       this.$store.commit('setState', payload);
     }
@@ -98,27 +124,74 @@ export default {
 <style>
 input[type="text" i]{
     border: 2px solid #e0dfdf;
+    border-radius:10px 0 0px 10px;
     padding: 15px;
-    border-radius: 10px 0 0 10px;
     background-color: #f3f3f3;
+    font-size: 22px;
+    color:#6d6d6d;
 }
 input[type="text" i]:focus {
     outline: none;
     border: 2px solid #c3cdd4 !important;
     background-color: #e0e0e0 !important;
 }
-input[type="submit" i]{
+input[inputmode="decimal" i]{
+    border-radius:0px 10px 10px 0px;
+    border: 2px solid #e0dfdf;
     padding: 15px;
-    border-radius: 0 10px 10px 0;
+    background-color: #f3f3f3;
+    font-size: 22px;
+    color:#6d6d6d;
+}
+input[inputmode="decimal" i]:focus {
+    outline: none;
+    border: 2px solid #c3cdd4 !important;
+    background-color: #e0e0e0 !important;
+}
+input[type="submit" i]{
+    border-radius:10px;
+    padding: 15px;
     border: 2px solid #e0dfdf;
     border-left: none !important;
     background-color: #69f2d9;
     color: #5a5959;
     font-weight: 700;
+        font-size: 22px;
 }
 input[type="submit" i]:focus {
     outline: none;
     border: 2px solid #5bb2ec !important;
     background-color: #d2edff !important;
+}
+.btn-primary{
+    color:#fff !important;
+    font-family: 'MuseoModerno', cursive !important;
+    font-weight: 200 !important;
+}
+.color-change-3x {
+	-webkit-animation: color-change-3x 3s linear infinite alternate both;
+    animation: color-change-3x 3s linear infinite alternate both;
+}
+@-webkit-keyframes color-change-3x {
+  0% {
+    background: #19dcea;
+  }
+  50% {
+    background: #196dea;
+  }
+  100% {
+    background: #05e6ae;
+  }
+}
+@keyframes color-change-3x {
+  0% {
+    background: #196dea;
+  }
+  50% {
+    background: #2cc3ff;
+  }
+  100% {
+    background: #05e6ae;
+  }
 }
 </style>
