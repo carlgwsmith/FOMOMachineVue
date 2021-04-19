@@ -1,7 +1,6 @@
 <template>
 <div>
     <h1 class="bannerText">{{boldLabel}}<span class="thin">{{thinLabel}}</span></h1>
-    <p>Submit a stock market ticker and an amount for your inital investment, then we'll get your FOMO Results</p>
 </div>
 </template>
 
@@ -32,9 +31,5 @@ export default {
 .thin{
     font-family: 'MuseoModerno', cursive;
     font-weight:200;
-}
-p{
-    font-size:1.3em;
-    color:#6d6d6d;
 }
 </style>

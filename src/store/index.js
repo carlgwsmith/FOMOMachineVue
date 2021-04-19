@@ -12,7 +12,7 @@ export default new Vuex.Store({
     earliestPrice: 0,
     earliestDate:'',
     fomoAmount:0,
-    new:{}
+    news:{}
   },
   mutations: {
     setState(state, payload){

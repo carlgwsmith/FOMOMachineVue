@@ -20,3 +20,13 @@ new Vue({
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+
+/** Vue Filters Start */
+Vue.filter('truncate', function (text, length, suffix) {
+  if (text.length > length) {
+      return text.substring(0, length) + suffix;
+  } else {
+      return text;
+  }
+});
+/** Vue Filters End */

@@ -1,6 +1,11 @@
 <template>
 <div class="container">
     <div class="row">
+      <div class="col-sm-12">
+        <h1 class="title">FOMO Results</h1>
+      </div>
+    </div>
+    <div class="row">
     <div class="col-sm-6">
         <div class="ticker-card fade-in">
             <!-- <logo-finder/> -->
@@ -15,6 +20,15 @@
             you would now have ${{formatPrice(earliestPrice * fomoAmount)}}.
         </div>
     </div>
+    </div>
+    <div class="row news">
+      <div class="col-sm-4 newsCard" v-for="item in news.slice(0,6)" :key="item.title">
+        <p class="newsDate">{{item.pubDate}}</p>
+        <a :href="item.link" target="_blank">
+        <p class="newsTitle">{{item.title | truncate(60,'...')}}</p>
+        <p class="newsDesc">{{item.description | truncate(300,'...')}}</p>
+        </a>
+      </div>
     </div>
 </div>
 </template>
@@ -34,6 +48,7 @@ export default {
         earliestDate:'',
         earliestPrice:0,
         fomoAmount: 0,
+        news:{},
     }),
     components:{
         //LogoFinder
@@ -51,6 +66,7 @@ export default {
     this.earliestDate = this.$store.getters.getEarliestDate;
     this.earliestPrice = this.$store.getters.getEarliestPrice;
     this.fomoAmount = this.$store.getters.getFomoAmount;
+    this.news = this.$store.getters.getNews;
     },
     updated() {
             var myDate = new Date(this.firstTradeDate *1000);
@@ -77,6 +93,13 @@ export default {
     color: #828282;
     margin-bottom:5px;
 }
+.title{
+  text-align: left;
+  border-bottom:1px solid #f3f3f3;
+  margin-bottom:20px;
+  color:#828282;
+  font-family: 'MuseoModerno', cursive;
+}
 .price{
     font-weight:700;
 }
@@ -88,6 +111,33 @@ export default {
     color: #828282;
     text-align: left;
     padding-left: 15px;
+}
+.news{
+  padding-top:20px;
+  margin-top:20px;
+  border-top:1px solid #f3f3f3;
+}
+.newsCard{
+  margin-bottom:30px;
+}
+.newsTitle{
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:4px;
+  border-bottom:1px solid #f3f3f3;
+  text-align:left;
+}
+.newsDate{
+  font-size:11px;
+  font-weight:900;
+  text-align:left;
+  color:rgb(196, 196, 196);
+  margin-bottom:0px;
+}
+.newsDesc{
+  font-size: 10px;
+  font-weight:400;
+  text-align:left;
 }
 .fomoBlock{
     margin:auto;
@@ -140,5 +190,12 @@ export default {
   100% {
     opacity: 1;
   }
+}
+</style>
+<style scoped>
+a {
+    color: #2c9eff;
+    text-decoration: none;
+    background-color: transparent;
 }
 </style>
