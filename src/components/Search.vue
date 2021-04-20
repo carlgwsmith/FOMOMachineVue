@@ -5,8 +5,8 @@
         <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker">
         <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
     </b-form-group>
-    <b-form-group>
-        <input type="submit" value="GIVE ME FOMO" class="btn-primary color-change-3x">
+    <b-form-group class='submit'>
+        <input type="submit" value="GIVE ME FOMO" class="btn-primary">
     </b-form-group>
   </b-form>
 </div>
@@ -152,16 +152,23 @@ input[type="submit" i]{
     border-radius:10px;
     padding: 15px;
     border: 2px solid #e0dfdf;
-    border-left: none !important;
     background-color: #69f2d9;
-    color: #5a5959;
-    font-weight: 700;
-        font-size: 22px;
+    color: #5a5959 !important;
+    font-weight: 500 !important;
+    font-size: 22px;
+}
+input[type="submit" i]:hover{
+    border: 2px solid #cccbcb;
+    background-color: #58ceb8;
 }
 input[type="submit" i]:focus {
     outline: none;
     border: 2px solid #5bb2ec !important;
     background-color: #d2edff !important;
+}
+.submit{
+    display: block;
+    padding-top: 20px;
 }
 .btn-primary{
     color:#fff !important;
