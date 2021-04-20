@@ -22,12 +22,14 @@
     </div>
     </div>
     <div class="row news">
-      <div class="col-sm-4 newsCard" v-for="item in news.slice(0,6)" :key="item.title">
-        <p class="newsDate">{{item.pubDate}}</p>
-        <a :href="item.link" target="_blank">
-        <p class="newsTitle">{{item.title | truncate(60,'...')}}</p>
-        <p class="newsDesc">{{item.description | truncate(300,'...')}}</p>
-        </a>
+      <div class="col-sm-4 newsCard" v-for="(item, index) in news" :key="item.title">
+        <div v-if="index < 6">
+          <p class="newsDate">{{item.pubDate}}</p>
+          <a :href="item.link" target="_blank">
+          <p class="newsTitle">{{item.title | truncate(60,'...')}}</p>
+          <p class="newsDesc">{{item.description | truncate(300,'...')}}</p>
+          </a>
+        </div>
       </div>
     </div>
 </div>

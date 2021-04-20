@@ -9,7 +9,10 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      layout: "default-layout"
+    }
   },
   {
     path: '/about',
@@ -22,7 +25,10 @@ const routes = [
   {
     path:'/results',
     name: 'Result',
-    component: Result
+    component: Result,
+    meta: {
+      layout: "results-page"
+    }
   }
 ]
 
