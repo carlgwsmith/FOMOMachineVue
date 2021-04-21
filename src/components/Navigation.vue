@@ -56,6 +56,7 @@ a.nav-link.router-link-exact-active.router-link-active.active:hover {
   background: -moz-linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
   background: linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
   -webkit-background-clip: text;
+  background-clip:text;
   -webkit-text-fill-color: transparent;
 }
 .tracking-in-expand {
