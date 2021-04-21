@@ -19,7 +19,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            ticker:'AAPL',
+            ticker:'',
             stockPrice:0,
             firstTradeDate:0,
             tickerObject: {},
@@ -152,14 +152,21 @@ input[type="submit" i]{
     border-radius:10px;
     padding: 15px;
     border: 2px solid #e0dfdf;
-    background-color: #69f2d9;
-    color: #5a5959 !important;
+     background: #1C9DFF;
+  background: -webkit-linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
+  background: -moz-linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
+  background: linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
+  color:white !important;
     font-weight: 500 !important;
     font-size: 22px;
 }
 input[type="submit" i]:hover{
     border: 2px solid #cccbcb;
-    background-color: #58ceb8;
+     background: #1C9DFF;
+  background: -webkit-linear-gradient(to right, #2da3fd 0%, #af79ff 100%);
+  background: -moz-linear-gradient(to right, #2da3fd 0%, #af79ff 100%);
+  background: linear-gradient(to right, #2da3fd 0%, #af79ff 100%);
+  color:white;
 }
 input[type="submit" i]:focus {
     outline: none;
