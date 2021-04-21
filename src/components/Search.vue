@@ -1,6 +1,6 @@
 <template>
 <div>
-<b-form @submit.prevent="searchSymbol(); getStockWebsite(); getEarlyPrice(); getNews();" >
+<b-form @submit.prevent="getEarlyPrice(); getStockWebsite(); getNews(); searchSymbol();" >
     <b-form-group>
         <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker">
         <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
@@ -45,6 +45,8 @@ export default {
                 axios.request(options).then(function (response) {
                 this.earlyDate = response.data.items[Object.keys(response.data.items)[0]].date;
                 this.earlyPrice = response.data.items[Object.keys(response.data.items)[0]].close;
+                console.log('success 1');
+                console.log(response.data);
                 }.bind(this)).catch(function (error) {
                 console.error(error);
                 });
@@ -63,6 +65,7 @@ export default {
                 axios.request(options).then(function (response) {
                     console.log('does this call work?:' + response.data.quoteSummary.result[0].assetProfile.website)
                     this.stockWebsite = response.data.quoteSummary.result[0].assetProfile.website;
+                    console.log('success 2');
                 }.bind(this)).catch(function (error) {
                     console.error(error);
                 });
@@ -79,7 +82,7 @@ export default {
 
                 axios.request(options).then(function (response) {
                    this.news = response.data.item;
-                   console.log(response.data.item);
+                   console.log('success 3');
                 }.bind(this)).catch(function (error) {
                     console.error(error);
                 });
@@ -99,6 +102,7 @@ export default {
             this.tickerObject = response.data;
             this.stockPrice = response.data.prices[0].close;
             this.firstTradeDate = response.data.firstTradeDate;
+            console.log('success 4');
             this.$router.push('/Results');
         }.bind(this)).catch(function (error) {
             console.error(error);
