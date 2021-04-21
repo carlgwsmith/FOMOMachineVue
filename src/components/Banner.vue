@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1 class="bannerText">{{boldLabel}}<span class="thin">{{thinLabel}}</span></h1>
+    <h1 class="bannerText tracking-in-expand">{{boldLabel}}<span class="thin">{{thinLabel}}</span></h1>
 </div>
 </template>
 
