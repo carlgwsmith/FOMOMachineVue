@@ -1,6 +1,6 @@
 <template>
 <div>
-<b-form @submit.prevent="getEarlyPrice(); getStockWebsite(); getNews(); searchSymbol();" >
+<b-form @submit.prevent="getStockWebsite(); getEarlyPrice(); getNews(); searchSymbol()" >
     <b-form-group>
         <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker">
         <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
@@ -88,25 +88,25 @@ export default {
                 });
         },
        searchSymbol () {
-    const options = {
-        method: 'GET',
-        url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-historical-data',
-        params: {symbol: this.ticker, region: 'US'},
-        headers: {
-            'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
-            'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
-            }
-        };
+            const options = {
+                method: 'GET',
+                url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-historical-data',
+                params: {symbol: this.ticker, region: 'US'},
+                headers: {
+                    'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+                    'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
+                    }
+                };
 
-        axios.request(options).then(function (response) {
-            this.tickerObject = response.data;
-            this.stockPrice = response.data.prices[0].close;
-            this.firstTradeDate = response.data.firstTradeDate;
-            console.log('success 4');
-            this.$router.push('/Results');
-        }.bind(this)).catch(function (error) {
-            console.error(error);
-        });
+                axios.request(options).then(function (response) {
+                    this.tickerObject = response.data;
+                    this.stockPrice = response.data.prices[0].close;
+                    this.firstTradeDate = response.data.firstTradeDate;
+                    console.log('success 4');
+                    this.$router.push('/Results');
+                }.bind(this)).catch(function (error) {
+                    console.error(error);
+                });
     }
     },
     beforeDestroy() {

@@ -24,6 +24,7 @@ export default {
     background: -webkit-linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
     background: -moz-linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
     background: linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
+    background-clip:text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom:10px;

@@ -29,4 +29,7 @@ body{
     background-size: cover;
     color: white;
 }
+.home{
+  margin-top:10%;
+}
 </style>
