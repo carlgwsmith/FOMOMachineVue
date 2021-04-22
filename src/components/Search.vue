@@ -1,6 +1,6 @@
 <template>
 <div>
-<b-form @submit.prevent="getStockWebsite(); getEarlyPrice(); getNews(); searchSymbol()" >
+<b-form @submit.prevent="apiCalls(getStockWebsite, getNews, searchSymbol);" >
     <b-form-group>
         <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker">
         <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
@@ -31,6 +31,21 @@ export default {
         }
     },
     methods:{
+        apiCalls(callback1, callback2, callback3){
+            this.getEarlyPrice();
+
+            setTimeout(function() {
+               callback1();
+            }, 200);
+
+            setTimeout(function() {
+               callback2();
+            }, 200);
+        
+            setTimeout(function() {
+               callback3()
+            }, 200);
+        },
         getEarlyPrice(){
             const options = {
                 method: 'GET',
