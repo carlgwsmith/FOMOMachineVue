@@ -36,15 +36,15 @@ export default {
 
             setTimeout(function() {
                callback1();
-            }, 200);
+            }, 50);
 
             setTimeout(function() {
                callback2();
-            }, 200);
+            }, 50);
         
             setTimeout(function() {
                callback3()
-            }, 200);
+            }, 50);
         },
         getEarlyPrice(){
             const options = {
