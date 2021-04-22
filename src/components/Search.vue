@@ -125,6 +125,9 @@ export default {
     }
     },
     beforeDestroy() {
+        this.getNews();
+        this.getStockWebsite();
+        this.getEarlyPrice();
         const payload = {
         ticker: this.ticker,
         stockPrice: this.stockPrice,
