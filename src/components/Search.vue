@@ -29,6 +29,7 @@ export default {
             earlyDate:'',
             fomoamount:0,
             news:{},
+            priceHistory:[],
         }
     },
     methods:{
@@ -126,6 +127,7 @@ export default {
                     this.tickerObject = response.data;
                     this.stockPrice = response.data.prices[0].close;
                     this.firstTradeDate = response.data.firstTradeDate;
+                    this.priceHistory = response.data.prices;
                     console.log('success 4');
                     this.$router.push('/Results');
                 }.bind(this)).catch(function (error) {
@@ -134,9 +136,7 @@ export default {
     }
     },
     beforeDestroy() {
-        // this.getNews();
-        // this.getStockWebsite();
-        // this.getEarlyPrice();
+       
         const payload = {
         ticker: this.ticker,
         stockPrice: this.stockPrice,
@@ -146,6 +146,7 @@ export default {
         earliestPrice: this.earlyPrice,
         fomoAmount: this.fomoamount,
         news: this.news,
+        priceHistory: this.priceHistory,
       }
       this.$store.commit('setState', payload);
     }
