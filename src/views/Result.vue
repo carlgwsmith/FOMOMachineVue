@@ -6,6 +6,11 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-sm-12">
+        {{priceHistory}}
+      </div>
+    </div>
+    <div class="row">
     <div class="col-sm-6">
         <div class="ticker-card fade-in">
             <!-- <logo-finder/> -->
@@ -51,6 +56,7 @@ export default {
         earliestPrice:0,
         fomoAmount: 0,
         news:{},
+        priceHistory:{},
     }),
     components:{
         //LogoFinder
@@ -69,6 +75,7 @@ export default {
     this.earliestPrice = this.$store.getters.getEarliestPrice;
     this.fomoAmount = this.$store.getters.getFomoAmount;
     this.news = this.$store.getters.getNews;
+    this.priceHistory = this.$store.getters.getPriceHistory;
     },
     updated() {
             var myDate = new Date(this.firstTradeDate *1000);

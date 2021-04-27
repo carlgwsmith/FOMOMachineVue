@@ -6,7 +6,7 @@
 
 <script>
 import HistoryChart from './charts/historyChart.vue';
-import historyChart from "./charts/historyChart.vue"
+
 export default {
     Name: 'Longevity Results',
     data: () => ({
@@ -54,6 +54,7 @@ export default {
     
 }),
     components: {
+        HistoryChart
         HistoryChart
     },
       computed: {

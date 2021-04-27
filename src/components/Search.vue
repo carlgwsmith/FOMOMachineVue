@@ -1,6 +1,5 @@
 <template>
 <div>
-<!-- <b-form @submit.prevent="apiCalls(getStockWebsite, getNews, searchSymbol);" > -->
 <b-form @submit.prevent="secondFunction(getEarlyPrice, getNews, getStockWebsite);">
     <b-form-group>
         <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker">
@@ -33,20 +32,7 @@ export default {
         }
     },
     methods:{
-        // apiCalls(){
-        //     return new Promise (function(fulfill, reject){
-        //         fulfill(console.log('fulfilled!'));
-        //         reject(console.log('error'));
-        //     });
-        // },
-        // async apiCaller(){
-        //     const a = this.getStockWebsite();
-        //     const b = this.getNews();
-        //     const c = this.getEarlyPrice();
-        //     const d = this.searchSymbol();
 
-        //     return Promise.all([a,b,c,d]);
-        // },
         firstFunction(callback){
             setTimeout(callback(), 3000);
         },
@@ -72,6 +58,7 @@ export default {
                 this.earlyPrice = response.data.items[Object.keys(response.data.items)[0]].close;
                 console.log('success 1');
                 console.log(response.data);
+                this.priceHistory = response.data.items;
                 }.bind(this)).catch(function (error) {
                 console.error(error);
                 });
@@ -127,7 +114,6 @@ export default {
                     this.tickerObject = response.data;
                     this.stockPrice = response.data.prices[0].close;
                     this.firstTradeDate = response.data.firstTradeDate;
-                    this.priceHistory = response.data.prices;
                     console.log('success 4');
                     this.$router.push('/Results');
                 }.bind(this)).catch(function (error) {
