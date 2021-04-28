@@ -1,31 +1,40 @@
 <template>
   <div>
-      <history-chart :chart-data="getAddedSavingsChartData" :options="getAddedSavingsChartOptions" :width="500" :height="400" />
+     <history-chart  :chart-data="getHistoryChartData" :options="getHistoryChartOptions" :width="500" :height="400"/>
   </div>
 </template>
 
 <script>
-import HistoryChart from './charts/historyChart.vue';
+import HistoryChart from './charts/HistoryChart.vue';
 
 export default {
     Name: 'Longevity Results',
     data: () => ({
-    priceHistory:[],
+    retireage:0,
+    lifespan:0,
+    retirementspending: 0,
+    retirementwithsavings:0,
+    retirementincome: 0,
+    retirementyears: 0,
+    retirementsalary: 0,
+    spending:0,
     options: {
         responsive: true,
         maintainAspectRatio: false,
         tooltipenabled: false,
         legend: {
-          display: true,
-          position: 'bottom',
-          labels: {
-            boxWidth: 8,
-            fontSize: 14
-          }
+          display: false,
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem) {
+              return tooltipItem.yLabel;
+              }
+            }
         },
         title: {
           display: true,
-          text: "The Potential of More Savings",
+          text: "How Much Money Do You Need to Retire?",
           fontSize: "22",
           fontFamily:"'Brygada 1918', serif",
           fontStyle:"800",
@@ -41,71 +50,163 @@ export default {
               min: 0,
               fontFamily:"'Brygada 1918', serif",
               fontStyle:"500",
+              fontSize:"16"
             }
           }],
-          yAxes: {
+          yAxes: [{
             ticks:{
-              fontFamily:"'Brygada 1918', serif",
-              fontStyle:"500",
+            beginAtZero: true,
+            min:0,
+            fontFamily:"'Brygada 1918', serif",
+            fontStyle:"500",
             }
-          }
+          }]
         }
       },
     
 }),
-    components: {
-        HistoryChart
-        HistoryChart
+components: {
+    HistoryChart,
     },
-      computed: {
-        returnState () {
+computed: {
+    returnState () {
     return this.$store.getters.getState;
   },
-  getAddedSavingsChartData: function () {
+  getHistoryChartData: function () {
     let chartData = {};
     let datasets = [];
 
-    // let ageArray =[];
-    // var retireage = this.retireage;
-    // var retirementsavings = this.retirementsavings;
-    // var annualincome = this.annualincome * 0.15;
-    // var currentage = this.currentage;
-    // var yearlySaving = [retirementsavings];
-    // var yearlySaving2 = [retirementsavings];
+    var spending = this.retirementyears * this.spending;
+    var retiresavings = this.retirementwithsavings - spending;
+    var rsalary = this.retirementsalary * this.retirementyears;
+
+    var haveAmount = retiresavings + rsalary;
+    var needAmount = this.retirementspending
 
 
+    var yearlySpending = [haveAmount, needAmount];
+    var bgColors = ['#71eabb', '#ea7171']
     
-    // for (var i = currentage; i <= retireage; i++) {
-    // ageArray.push(i);
-    // }
-    // for (var x = currentage; x <= retireage; x++) {
-    // yearlySaving.push(retirementsavings * yearlySaving.length );
-    // }
-
-    // for (var y = currentage; y < retireage; y++){
-    //   yearlySaving2.push(annualincome * yearlySaving2.length);
-    // }
-    // console.log(yearlySaving2);
-
-    datasets.push({ data: yearlySaving, label: 'Current Retirement Savings', borderColor: '#71eabb', fill: true, backgroundColor: "rgba(113,234,187,0.25)", pointBorderColor: "#2DE199" },
-     {data: yearlySaving2, borderColor: '#19afff', label: 'Optimal Retirement Savings', fill: false})
+    datasets.push({ data: yearlySpending, backgroundColor: bgColors, label: '' })
 
 
-    chartData.labels =  ageArray
+    chartData.labels =  ['How much you have', 'How much you need']
     chartData.datasets = datasets
     return chartData
   },
-  getAddedSavingsChartOptions: function () {
+  getHistoryChartOptions: function () {
       let opts = this.options
       return opts
     },
 },
 mounted() {
-
-    this.priceHistory = this.$store.getters.getPriceHistory;
+    this.retireage = this.$store.getters.getRetireAge;
+    this.lifespan = this.$store.getters.getLifeSpan;
+    this.retirementwithsavings = this.$store.getters.getRetirementWithSavings;
+    this.retirementincome = this.$store.getters.getRetirementIncome;
+    this.retirementspending = this.$store.getters.getRetirementSpending;
+    this.retirementyears = this.$store.getters.getRetirementYears;
+    this.retirementsalary = this.$store.getters.getRetirementSalary;
+    this.spending = this.$store.getters.getNonRetirementSpending;
 },
 }
 </script>
+//<script>
+// import HistoryChart from './charts/historyChart.vue';
+
+// export default {
+//     Name: 'Longevity Results',
+//     data: () => ({
+//     priceHistory:[],
+//     options: {
+//         responsive: true,
+//         maintainAspectRatio: false,
+//         tooltipenabled: false,
+//         legend: {
+//           display: true,
+//           position: 'bottom',
+//           labels: {
+//             boxWidth: 8,
+//             fontSize: 14
+//           }
+//         },
+//         title: {
+//           display: true,
+//           text: "The Potential of More Savings",
+//           fontSize: "22",
+//           fontFamily:"'Brygada 1918', serif",
+//           fontStyle:"800",
+//           fontColor:"#274c83",
+//         },
+//         pointLabels: {
+//           display: false
+//         },
+//         scales: {
+//           xAxes: [{
+//             id: 'default',
+//             ticks: {
+//               min: 0,
+//               fontFamily:"'Brygada 1918', serif",
+//               fontStyle:"500",
+//             }
+//           }],
+//           yAxes: {
+//             ticks:{
+//               fontFamily:"'Brygada 1918', serif",
+//               fontStyle:"500",
+//             }
+//           }
+//         }
+//       },
+    
+// }),
+//     components: {
+//         HistoryChart
+//     },
+//       computed: {
+//         returnState () {
+//     return this.$store.getters.getState;
+//   },
+//   getHistoryChartData: function () {
+//     let chartData = {};
+//     let datasets = [];
+
+//     var pricesState = this.priceHistory;
+//     var prices = [];
+//     var priceDates = [];
+
+//       for (const [key, value] of Object.entries(pricesState)) {
+//       let closing = [(key, value.close)];
+//       console.log(closing[0]);
+//       prices.push(closing[0]);
+//       }
+      
+//       for (const [key, value] of Object.entries(pricesState)) {
+
+//       let date = [(key, value.date)];
+//       console.log(date[0]);
+//       priceDates.push(date[0]);
+//       }
+
+
+//     datasets.push({ data: prices, label: 'Current Retirement Savings', borderColor: '#71eabb', fill: true, backgroundColor: "rgba(113,234,187,0.25)", pointBorderColor: "#2DE199" })
+//     datasets.push({ data: prices })
+
+
+//     chartData.labels =  priceDates
+//     chartData.datasets = datasets
+//     return chartData
+//   },
+//   getHistoryChartOptions: function () {
+//       let opts = this.options
+//       return opts
+//     },
+// },
+// mounted() {
+//     this.priceHistory = this.$store.getters.getPriceHistory;
+// },
+// }
+// </script>
 
 <style>
 

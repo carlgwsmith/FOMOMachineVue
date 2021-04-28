@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        {{priceHistory}}
+        <History-Chart-View />
       </div>
     </div>
     <div class="row">
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import HistoryChartView from '../components/HistoryChartView.vue';
 //import LogoFinder from '../components/LogoFinder.vue';
 
 export default {
@@ -59,7 +60,8 @@ export default {
         priceHistory:{},
     }),
     components:{
-        //LogoFinder
+        HistoryChartView
+        //LogoFinder,
     },
     computed: {
     returnState () {

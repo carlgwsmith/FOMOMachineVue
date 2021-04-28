@@ -355,7 +355,7 @@ data () {
     looping(items){
       for (const [key, value] of Object.entries(items)) {
       //  this.prices.push(key.);
-      let closing = [(key, value.close)];
+      let closing = [(key, value.date)];
       console.log(closing[0]);
       this.prices.push(closing[0]);
       }
