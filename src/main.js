@@ -31,3 +31,4 @@ Vue.filter('truncate', function (text, length, suffix) {
   }
 });
 /** Vue Filters End */
+
