@@ -32,3 +32,8 @@ Vue.filter('truncate', function (text, length, suffix) {
 });
 /** Vue Filters End */
 
+Vue.directive("uppercase", {
+  update: function (el) {
+      el.value = el.value.toUpperCase()
+  }
+})

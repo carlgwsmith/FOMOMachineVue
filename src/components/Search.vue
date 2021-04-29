@@ -2,11 +2,14 @@
 <div>
 <b-form @submit.prevent="secondFunction(getEarlyPrice, getNews, getStockWebsite);">
     <b-form-group>
-        <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker">
+        <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker" v-uppercase>
         <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
     </b-form-group>
     <b-form-group class='submit'>
-        <input type="submit" value="GIVE ME FOMO" class="btn-primary">
+        <b-button type="submit" class="submitBtn">
+            Give Me FOMO
+        <b-spinner label="Loading..." v-if="showLoad" style="padding-left:10px;"></b-spinner>
+        </b-button>
     </b-form-group>
   </b-form>
 </div>
@@ -19,6 +22,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            showLoad: false,
             ticker:'',
             stockPrice:0,
             firstTradeDate:0,
@@ -37,6 +41,7 @@ export default {
             setTimeout(callback(), 3000);
         },
         secondFunction(callback2, callback3, callback4){
+            this.showLoad = true;
             callback2();
             callback3();
             callback4();
@@ -166,19 +171,20 @@ input[inputmode="decimal" i]:focus {
     border: 2px solid #c3cdd4 !important;
     background-color: #e0e0e0 !important;
 }
-input[type="submit" i]{
-    border-radius:10px;
-    padding: 15px;
-    border: 2px solid #e0dfdf;
+.submitBtn{
+    border-radius:10px !important;
+    padding: 15px 40px !important;
+    border: 2px solid #e0dfdf !important;
      background: #1C9DFF;
   background: -webkit-linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
   background: -moz-linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
   background: linear-gradient(to right, #1C9DFF 0%, #A66BFF 100%);
   color:white !important;
     font-weight: 500 !important;
-    font-size: 22px;
+    font-family: 'MuseoModerno', cursive !important;
+    font-size: 28px !important;
 }
-input[type="submit" i]:hover{
+.submitBtn:hover{
     border: 2px solid #cccbcb;
      background: #1C9DFF;
   background: -webkit-linear-gradient(to right, #2da3fd 0%, #af79ff 100%);
@@ -186,15 +192,15 @@ input[type="submit" i]:hover{
   background: linear-gradient(to right, #2da3fd 0%, #af79ff 100%);
   color:white;
 }
-input[type="submit" i]:focus {
+.submitBtn:focus {
     outline: none;
     border: 2px solid #5bb2ec !important;
     background-color: #d2edff !important;
 }
 .submit{
     display: block;
-    padding-top: 20px;
-}
+    padding-top: 2px;
+} */
 .btn-primary{
     color:#fff !important;
     font-family: 'MuseoModerno', cursive !important;

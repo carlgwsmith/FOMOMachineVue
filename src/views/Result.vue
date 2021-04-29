@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container-xl">
     <div class="row">
       <div class="col-sm-12">
         <h1 class="title">FOMO Results</h1>
