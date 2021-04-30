@@ -1,6 +1,6 @@
 <template>
 <div class="container-xl">
-    <div class="row">
+    <div class="row" style="padding-top:20px;">
       <div class="col-sm-12">
         <h1 class="title">FOMO Results</h1>
       </div>
@@ -13,7 +13,7 @@
     <div class="row">
     <div class="col-sm-6">
         <div class="ticker-card fade-in">
-            <!-- <logo-finder/> -->
+            <logo-finder/>
             <p class="ticker">{{ticker}}</p>
             <p class="subtitle">Current Price Per Share: <span class="price">${{stockPrice.toFixed(2)}}</span></p>
             <p class="subtitle">First Traded on {{firstTradeDateReadable}}</p>
@@ -21,7 +21,7 @@
     </div>
     <div class="col-sm-6 fomoBlock slide-in-right">
         <div class="fomoMsg">
-            If you had invested: ${{formatPrice(fomoAmount)}} in {{ticker}} on {{earliestDate}} at ${{earliestPrice}}
+            If you had invested: <strong>${{formatPrice(fomoAmount)}}</strong> in <strong>{{ticker}}</strong> on {{earliestDate}} at ${{earliestPrice}}
             you would now have ${{formatPrice(earliestPrice * fomoAmount)}}.
         </div>
     </div>
@@ -42,7 +42,7 @@
 
 <script>
 import HistoryChartView from '../components/historyChartView.vue';
-//import LogoFinder from '../components/LogoFinder.vue';
+import LogoFinder from '../components/LogoFinder.vue';
 
 export default {
     data: () => ({
@@ -60,8 +60,8 @@ export default {
         priceHistory:{},
     }),
     components:{
-        HistoryChartView
-        //LogoFinder,
+        HistoryChartView,
+        LogoFinder
     },
     computed: {
     returnState () {
@@ -97,12 +97,17 @@ export default {
         background-color: #f7f7f7;
     box-shadow: 2px 2px 6px #eaeaea, -6px -6px 5px #ffffff;
     padding: 40px 20px;
+    border:6px solid #71eabb;
+    border-radius:10px;
 }
 .ticker{
     font-size:3em;
     font-weight:600;
     color: #828282;
     margin-bottom:5px;
+    border-top:1px solid #dadada;
+    padding-top:5px;
+    margin-top:10px;
 }
 .title{
   text-align: left;
@@ -110,6 +115,7 @@ export default {
   margin-bottom:20px;
   color:#828282;
   font-family: 'MuseoModerno', cursive;
+  text-align: center;
 }
 .price{
     font-weight:700;

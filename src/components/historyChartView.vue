@@ -78,9 +78,8 @@ export default {
 
       let date = [(key, value.date)];
       console.log(date[0]);
-      priceDates.push(date[0]);
+      priceDates.push(date[0].substring(3));
       }
-
 
     datasets.push({ data: prices, label: 'Price', borderColor: '#71eabb', fill: true, backgroundColor: "rgba(113,234,187,0.25)", pointBorderColor: "#2DE199" })
 
