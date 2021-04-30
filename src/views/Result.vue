@@ -2,31 +2,34 @@
 <div class="container-xl">
     <div class="row" style="padding-top:20px;">
       <div class="col-sm-12">
-        <h1 class="title">FOMO Results</h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 pb-4">
-        <History-Chart-View />
+        <h1 class="title tracking-in-expand">{{ticker}}: FOMO Results</h1>
       </div>
     </div>
     <div class="row">
     <div class="col-sm-6">
         <div class="ticker-card fade-in">
             <logo-finder/>
-            <p class="ticker">{{ticker}}</p>
             <p class="subtitle">Current Price Per Share: <span class="price">${{stockPrice.toFixed(2)}}</span></p>
             <p class="subtitle">First Traded on {{firstTradeDateReadable}}</p>
         </div>
     </div>
     <div class="col-sm-6 fomoBlock slide-in-right">
         <div class="fomoMsg">
+          <h1 style="font-weight:800;font-size:65px;">DANG!</h1>
             If you had invested: <strong>${{formatPrice(fomoAmount)}}</strong> in <strong>{{ticker}}</strong> on {{earliestDate}} at ${{earliestPrice}}
             you would now have ${{formatPrice(earliestPrice * fomoAmount)}}.
         </div>
     </div>
     </div>
+    <div class="row" style="padding-top: 20px; margin-top: 20px; border-top: 1px solid #f3f3f3;">
+      <div class="col-sm-12 pb-4">
+        <History-Chart-View />
+      </div>
+    </div>
     <div class="row news">
+      <div class="col-sm-12">
+        <h2 class="titleSection">Latest {{ticker}} News</h2>
+      </div>
       <div class="col-sm-4 newsCard" v-for="(item, index) in news" :key="item.title">
         <div v-if="index < 6">
           <p class="newsDate">{{item.pubDate}}</p>
@@ -110,12 +113,19 @@ export default {
     margin-top:10px;
 }
 .title{
-  text-align: left;
   border-bottom:1px solid #f3f3f3;
   margin-bottom:20px;
   color:#828282;
   font-family: 'MuseoModerno', cursive;
   text-align: center;
+  font-size:65px;
+}
+.titleSection{
+  border-bottom:1px solid #f3f3f3;
+  margin-bottom:20px;
+  color:#828282;
+  font-family: 'MuseoModerno', cursive;
+  text-align: left;
 }
 .price{
     font-weight:700;
@@ -132,7 +142,6 @@ export default {
 .news{
   padding-top:20px;
   margin-top:20px;
-  border-top:1px solid #f3f3f3;
 }
 .newsCard{
   margin-bottom:30px;
