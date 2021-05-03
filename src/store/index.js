@@ -14,6 +14,7 @@ export default new Vuex.Store({
     fomoAmount:0,
     news:{},
     priceHistory:[],
+    companyName: '',
   },
   mutations: {
     setState(state, payload){
@@ -26,6 +27,7 @@ export default new Vuex.Store({
       state.fomoAmount = payload.fomoAmount;
       state.news = payload.news;
       state.priceHistory = payload.priceHistory;
+      state.companyName = payload.companyName;
     },
     setTicker(state, payload){
       state.ticker = payload.ticker
@@ -53,6 +55,9 @@ export default new Vuex.Store({
     },
     setPriceHistory(state, payload){
       state.priceHistory = payload.priceHistory;
+    },
+    setCompanyName(state, payload){
+      state.companyName = payload.companyName;
     }
   },
   actions: {
@@ -89,6 +94,9 @@ export default new Vuex.Store({
     },
     getPriceHistory(state){
       return state.priceHistory
+    },
+    getCompanyName(state){
+      return state.companyName
     }
   }
 })

@@ -51,6 +51,7 @@ a.nav-link.router-link-exact-active.router-link-active.active:hover {
 .navbar-brand{
   font-family: 'MuseoModerno', cursive;
   font-weight:500;
+  font-size:2rem !important;
   background: #08FFD6;
   background: -webkit-linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
   background: -moz-linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);

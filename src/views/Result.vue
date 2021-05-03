@@ -1,14 +1,15 @@
 <template>
 <div class="container-xl">
-    <div class="row" style="padding-top:20px;">
+    <div class="row" style="padding-top:40px;">
       <div class="col-sm-12">
-        <h1 class="title tracking-in-expand">{{ticker}}: FOMO Results</h1>
+        <h2 class="titleSection">{{ticker}} Results</h2>
       </div>
     </div>
     <div class="row">
     <div class="col-sm-6">
         <div class="ticker-card fade-in">
-            <logo-finder/>
+            <p class="ticker-title">{{companyName}}</p>
+            <logo-finder style="margin-bottom:20px"/>
             <p class="subtitle">Current Price Per Share: <span class="price">${{stockPrice.toFixed(2)}}</span></p>
             <p class="subtitle">First Traded on {{firstTradeDateReadable}}</p>
         </div>
@@ -18,10 +19,14 @@
           <h1 style="font-weight:800;font-size:65px;">DANG!</h1>
             If you had invested: <strong>${{formatPrice(fomoAmount)}}</strong> in <strong>{{ticker}}</strong> on {{earliestDate}} at ${{earliestPrice}}
             you would now have ${{formatPrice(earliestPrice * fomoAmount)}}.
+            that's a {{percentageIncrease(earliestPrice, stockPrice)}}% change.
         </div>
     </div>
     </div>
-    <div class="row" style="padding-top: 20px; margin-top: 20px; border-top: 1px solid #f3f3f3;">
+    <div class="row" style="padding-top: 20px; margin-top: 30px;">
+      <div class="col-sm-12">
+        <h2 class="titleSection">How {{ticker}} Looks Over-Time</h2>
+      </div>
       <div class="col-sm-12 pb-4">
         <History-Chart-View />
       </div>
@@ -61,6 +66,7 @@ export default {
         fomoAmount: 0,
         news:{},
         priceHistory:{},
+        companyName:'Company Name Inc'
     }),
     components:{
         HistoryChartView,
@@ -81,6 +87,7 @@ export default {
     this.fomoAmount = this.$store.getters.getFomoAmount;
     this.news = this.$store.getters.getNews;
     this.priceHistory = this.$store.getters.getPriceHistory;
+    this.companyName = this.$store.getters.getCompanyName;
     },
     updated() {
             var myDate = new Date(this.firstTradeDate *1000);
@@ -90,6 +97,10 @@ export default {
         formatPrice(value) {
             let val = (value/1).toFixed(2).replace(',', '.')
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        },
+        percentageIncrease (earliestPrice, currentPrice){
+          let top = currentPrice - earliestPrice;
+          return (top / currentPrice) * 100;
         }
     }
 }
@@ -102,6 +113,13 @@ export default {
     padding: 40px 20px;
     border:6px solid #71eabb;
     border-radius:10px;
+}
+.ticker-title{
+    font-size: 2.25rem;
+    font-weight: 200;
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 0 0 10px 0;
+    color: #828282;
 }
 .ticker{
     font-size:3em;

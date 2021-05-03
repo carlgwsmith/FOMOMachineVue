@@ -24,7 +24,7 @@ export default {
           }
         },
         title: {
-          display: true,
+          display: false,
           text: "The Potential of Early Investments",
           fontSize: "22",
           fontFamily:"'Nunito Sans', sans-serif",
@@ -37,6 +37,7 @@ export default {
         scales: {
           xAxes: [{
             id: 'default',
+            text: '3mo',
             ticks: {
               min: 0,
               fontFamily:"'Nunito Sans', Helvetica, Arial, sans-serif",

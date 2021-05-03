@@ -20,10 +20,10 @@ export default {
 .bannerText{
     font-family: 'MuseoModerno', cursive;
     font-size:6em;
-    background: #08FFD6;
-    background: -webkit-linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
-    background: -moz-linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
-    background: linear-gradient(to right, #08FFD6 0%, #A66BFF 100%);
+  background: #08FFD6;
+  background: -webkit-linear-gradient(to right, #08FFD6 20%, #A66BFF 80%);
+  background: -moz-linear-gradient(to right, #08FFD6 20%, #A66BFF 80%);
+  background: linear-gradient(to right, #08FFD6 20%, #A66BFF 80%);
     background-clip:text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

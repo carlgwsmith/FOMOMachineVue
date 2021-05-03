@@ -1,6 +1,6 @@
 <template>
 <div>
-<b-form @submit.prevent="secondFunction(getEarlyPrice, getNews, getStockWebsite);">
+<b-form @submit.prevent="secondFunction(getEarlyPrice, getNews, getStockWebsite, getCompanyInfo);">
     <b-form-group>
         <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker" v-uppercase>
         <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
@@ -33,19 +33,39 @@ export default {
             fomoamount:0,
             news:{},
             priceHistory:[],
+            companyName: '',
         }
     },
     methods:{
 
         firstFunction(callback){
-            setTimeout(callback(), 3000);
+            setTimeout(callback(), 4000);
         },
-        secondFunction(callback2, callback3, callback4){
+        secondFunction(callback2, callback3, callback4, callback5){
             this.showLoad = true;
             callback2();
             callback3();
             callback4();
+            callback5();
             this.firstFunction(this.searchSymbol);
+        },
+        getCompanyInfo(){
+            const options = {
+                method: 'GET',
+                url: 'https://stock-market-data.p.rapidapi.com/stock/company-info',
+                params: {ticker_symbol: this.ticker},
+                headers: {
+                    'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+                    'x-rapidapi-host': 'stock-market-data.p.rapidapi.com'
+                }
+                };
+
+                axios.request(options).then(function (response) {
+                    console.log(response.data);
+                    this.companyName = response.data.company_profile['Company Name'];
+                }.bind(this)).catch(function (error) {
+                    console.error(error);
+                });
         },
         getEarlyPrice(){
             const options = {
@@ -138,6 +158,7 @@ export default {
         fomoAmount: this.fomoamount,
         news: this.news,
         priceHistory: this.priceHistory,
+        companyName: this.companyName
       }
       this.$store.commit('setState', payload);
     }
