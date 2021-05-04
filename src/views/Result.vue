@@ -19,7 +19,7 @@
           <h1 style="font-weight:800;font-size:65px;">DANG!</h1>
             If you had invested: <strong>${{formatPrice(fomoAmount)}}</strong> in <strong>{{ticker}}</strong> on {{earliestDate}} at ${{earliestPrice}}
             you would now have ${{formatPrice(earliestPrice * fomoAmount)}}.
-            That's a {{percentageIncrease(earliestPrice, 132)}}% change.
+            That's a {{percentageIncrease(earliestPrice, currentPrice)}}% change.
         </div>
     </div>
     </div>
