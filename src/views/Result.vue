@@ -19,7 +19,7 @@
           <h1 style="font-weight:800;font-size:65px;">DANG!</h1>
             If you had invested: <strong>${{formatPrice(fomoAmount)}}</strong> in <strong>{{ticker}}</strong> on {{earliestDate}} at ${{earliestPrice}}
             you would now have ${{formatPrice(earliestPrice * fomoAmount)}}.
-            that's a {{percentageIncrease(earliestPrice, stockPrice)}}% change.
+            That's a {{percentageIncrease(earliestPrice, 132)}}% change.
         </div>
     </div>
     </div>
@@ -99,8 +99,9 @@ export default {
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         },
         percentageIncrease (earliestPrice, currentPrice){
-          let top = currentPrice - earliestPrice;
-          return (top / currentPrice) * 100;
+          let difference = currentPrice - earliestPrice;
+          let percentage = (difference / earliestPrice);
+          return (percentage * 100).toFixed(2)
         }
     }
 }
