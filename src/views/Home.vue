@@ -32,7 +32,7 @@ p{
   background: linear-gradient(
       rgb(255, 255, 255), 
       rgba(255, 255, 255, 0.5)
-    ), url('../assets/unsplash-bg.jpg') !important;
+    ), url('../assets/bgchart.jpg') !important;
   background-size: cover !important;
 }
 

@@ -65,8 +65,9 @@ a.nav-link.router-link-exact-active.router-link-active.active:hover {
 	animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 }
 .navbar{
-  border-bottom: 2px solid #dddddd;
+  border-bottom: 2px solid #efefef;
   box-shadow: 2px 8px 7px #f4f4f4;
+  background-color: white;
 }
 @-webkit-keyframes tracking-in-expand {
   0% {
