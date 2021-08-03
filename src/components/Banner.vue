@@ -19,7 +19,7 @@ export default {
 <style>
 .bannerText{
     font-family: 'MuseoModerno', cursive;
-    font-size:6em;
+    font-size:5rem;
   background: #08FFD6;
   background: -webkit-linear-gradient(to right, #08FFD6 20%, #A66BFF 80%);
   background: -moz-linear-gradient(to right, #08FFD6 20%, #A66BFF 80%);
@@ -29,6 +29,12 @@ export default {
     -webkit-text-fill-color: transparent;
     margin-bottom:10px;
 }
+@media screen and (max-width: 400px) {
+    .bannerText {
+        font-size:2.5rem;
+    }
+}
+
 .thin{
     font-family: 'MuseoModerno', cursive;
     font-weight:200;

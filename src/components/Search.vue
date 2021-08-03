@@ -42,13 +42,13 @@ export default {
             setTimeout(callback(), 7000);
         },
         function2(callback2){
-            setTimeout(callback2(), 4000);
+            setTimeout(callback2(), 1000);
         },
-        function3(callback3){
-            setTimeout(callback3(), 3000);
-        },
+        // function3(callback3){
+        //     setTimeout(callback3(), 3000);
+        // },
         function4(callback4){
-            setTimeout(callback4(), 2000);
+            setTimeout(callback4(), 1000);
         },
         function5(callback5){
             setTimeout(callback5(), 1000)
