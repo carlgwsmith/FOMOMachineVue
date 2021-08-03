@@ -9,7 +9,7 @@
     <div class="col-sm-6">
         <div class="ticker-card fade-in">
             <p class="ticker-title">{{companyName}}</p>
-            <logo-finder style="margin-bottom:20px"/>
+            <logo-finder style="margin-bottom:20px" v-if="isMounted"/>
             <p class="subtitle">Current Price Per Share: <span class="price">${{stockPrice.toFixed(2)}}</span></p>
             <p class="subtitle">First Traded on {{firstTradeDateReadable}}</p>
         </div>
@@ -19,7 +19,7 @@
           <h1 style="font-weight:800;font-size:65px;">DANG!</h1>
             If you had invested: <strong>${{formatPrice(fomoAmount)}}</strong> in <strong>{{ticker}}</strong> on {{earliestDate}} at ${{earliestPrice}}
             you would now have ${{formatPrice(earliestPrice * fomoAmount)}}.
-            That's a {{percentageIncrease(earliestPrice, currentPrice)}}% change.
+            That's a {{percentageIncrease(earliestPrice, stockPrice)}}% change.
         </div>
     </div>
     </div>
@@ -66,7 +66,8 @@ export default {
         fomoAmount: 0,
         news:{},
         priceHistory:{},
-        companyName:'Company Name Inc'
+        companyName:'Company Name Inc',
+        isMounted: false
     }),
     components:{
         HistoryChartView,
@@ -74,8 +75,12 @@ export default {
     },
     computed: {
     returnState () {
+        this.loading();
         return this.$store.getters.getState;
-        }
+        },
+    loading () {
+      return(<template><div>Loading...</div></template>)
+    }
     },
     mounted() {
     this.ticker = this.$store.getters.getTicker;
@@ -88,6 +93,7 @@ export default {
     this.news = this.$store.getters.getNews;
     this.priceHistory = this.$store.getters.getPriceHistory;
     this.companyName = this.$store.getters.getCompanyName;
+    this.isMounted = true;
     },
     updated() {
             var myDate = new Date(this.firstTradeDate *1000);
