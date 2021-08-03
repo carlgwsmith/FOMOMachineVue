@@ -5,7 +5,7 @@
 </template>
 
 // <script>
-import HistoryChart from './charts/HistoryChart.vue';
+import HistoryChart from './charts/HistoryChart.vue'
 
 export default {
     Name: 'Longevity Results',
