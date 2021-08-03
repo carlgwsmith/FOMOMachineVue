@@ -1,6 +1,6 @@
 <template>
 <div>
-<b-form @submit.prevent="secondFunction(getEarlyPrice, getNews, getCompanyInfo);">
+<b-form @submit.prevent="onFormSubmit()">
     <b-form-group>
         <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker" v-uppercase>
         <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
@@ -34,34 +34,52 @@ export default {
             news:{},
             priceHistory:[],
             companyName: '',
+            ready:false,
         }
     },
     methods:{
-
-                function1(callback){
-            setTimeout(callback(), 7000);
-        },
-        function2(callback2){
-            setTimeout(callback2(), 1000);
-        },
+        // function1(callback){
+        //     setTimeout(callback(), 7000);
+        // },
+        // function2(callback2){
+        //     setTimeout(callback2(), 1000);
+        // },
         // function3(callback3){
         //     setTimeout(callback3(), 3000);
         // },
-        function4(callback4){
-            setTimeout(callback4(), 1000);
-        },
-        function5(callback5){
-            setTimeout(callback5(), 1000)
-        },
+        // function4(callback4){
+        //     setTimeout(callback4(), 1000);
+        // },
+        // function5(callback5){
+        //     setTimeout(callback5(), 1000)
+        // },
+        // secondFunction(callback2, callback4, callback5){
+        //     this.showLoad = true;
+        //     this.function2(callback2);
+        //     this.function3(callback3);
+        //     this.function4(callback4);
+        //     this.function5(callback5);
+        // },
+        onFormSubmit() {
+            Promise.all([
+                this.showLoad = true,
+                this.getCompanyInfo(),
+                this.getEarlyPrice(),
+                this.getNews(),
+                this.searchSymbol()
 
-        secondFunction(callback2, callback4, callback5){
-            this.showLoad = true;
-            this.function2(callback2);
-            //this.function3(callback3);
-            this.function4(callback4);
-            this.function5(callback5);
-            this.function1(this.searchSymbol);
-        },
+            ]).then(
+                setTimeout(() => {
+                    this.$router.push('/Results'),
+                     console.log('moving')
+                }, 5000)
+            )
+            .catch(
+               function(error){
+                   console.log(error)
+               }
+            )
+      },
         getCompanyInfo(){
             const options = {
                 method: 'GET',
@@ -75,6 +93,7 @@ export default {
 
                 axios.request(options).then(function (response) {
                     console.log(response.data);
+                    console.log('success 1')
                     this.companyName = response.data.company_profile['Company Name'];
                     this.stockWebsite = response.data.company_profile['Website']
                 }.bind(this)).catch(function (error) {
@@ -95,7 +114,7 @@ export default {
                 axios.request(options).then(function (response) {
                 this.earlyDate = response.data.items[Object.keys(response.data.items)[0]].date;
                 this.earlyPrice = response.data.items[Object.keys(response.data.items)[0]].close;
-                console.log('success 1');
+                console.log('success 2');
                 console.log(response.data);
                 this.priceHistory = response.data.items;
                 }.bind(this)).catch(function (error) {
@@ -154,7 +173,6 @@ export default {
                     this.stockPrice = response.data.prices[0].close;
                     this.firstTradeDate = response.data.firstTradeDate;
                     console.log('success 4');
-                    this.$router.push('/Results');
                 }.bind(this)).catch(function (error) {
                     console.error(error);
                 });

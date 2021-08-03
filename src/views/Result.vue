@@ -9,7 +9,7 @@
     <div class="col-sm-6">
         <div class="ticker-card fade-in">
             <p class="ticker-title">{{companyName}}</p>
-            <logo-finder style="margin-bottom:20px" v-if="isMounted"/>
+            <!-- <logo-finder style="margin-bottom:20px" v-if="isMounted"/> -->
             <p class="subtitle">Current Price Per Share: <span class="price">${{stockPrice.toFixed(2)}}</span></p>
             <p class="subtitle">First Traded on {{firstTradeDateReadable}}</p>
         </div>
@@ -50,7 +50,7 @@
 
 <script>
 import HistoryChartView from '../components/historyChartView.vue';
-import LogoFinder from '../components/LogoFinder.vue';
+// import LogoFinder from '../components/LogoFinder.vue';
 
 export default {
     data: () => ({
@@ -71,7 +71,7 @@ export default {
     }),
     components:{
         HistoryChartView,
-        LogoFinder
+        // LogoFinder
     },
     computed: {
     returnState () {
