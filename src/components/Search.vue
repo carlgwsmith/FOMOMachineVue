@@ -1,6 +1,6 @@
 <template>
 <div>
-<b-form @submit.prevent="secondFunction(getEarlyPrice, getNews, getStockWebsite, getCompanyInfo);">
+<b-form @submit.prevent="secondFunction(getEarlyPrice, getNews, getCompanyInfo);">
     <b-form-group>
         <input type="text" v-model="ticker" name="ticker" placeholder="Enter Stock Ticker" v-uppercase>
         <currency-input v-model="fomoamount" name="fomoamount" currency="USD"></currency-input>
@@ -38,16 +38,29 @@ export default {
     },
     methods:{
 
-        firstFunction(callback){
-            setTimeout(callback(), 4000);
+                function1(callback){
+            setTimeout(callback(), 7000);
         },
-        secondFunction(callback2, callback3, callback4, callback5){
+        function2(callback2){
+            setTimeout(callback2(), 4000);
+        },
+        function3(callback3){
+            setTimeout(callback3(), 3000);
+        },
+        function4(callback4){
+            setTimeout(callback4(), 2000);
+        },
+        function5(callback5){
+            setTimeout(callback5(), 1000)
+        },
+
+        secondFunction(callback2, callback4, callback5){
             this.showLoad = true;
-            callback2();
-            callback3();
-            callback4();
-            callback5();
-            this.firstFunction(this.searchSymbol);
+            this.function2(callback2);
+            //this.function3(callback3);
+            this.function4(callback4);
+            this.function5(callback5);
+            this.function1(this.searchSymbol);
         },
         getCompanyInfo(){
             const options = {
@@ -63,6 +76,7 @@ export default {
                 axios.request(options).then(function (response) {
                     console.log(response.data);
                     this.companyName = response.data.company_profile['Company Name'];
+                    this.stockWebsite = response.data.company_profile['Website']
                 }.bind(this)).catch(function (error) {
                     console.error(error);
                 });
@@ -88,25 +102,25 @@ export default {
                 console.error(error);
                 });
         },
-        getStockWebsite(){
-            const options = {
-                method: 'GET',
-                url: 'https://yahoo-finance-low-latency.p.rapidapi.com/v11/finance/quoteSummary/' + this.ticker,
-                params: {modules: 'defaultKeyStatistics,assetProfile'},
-                headers: {
-                    'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
-                    'x-rapidapi-host': 'yahoo-finance-low-latency.p.rapidapi.com'
-                }
-                };
+        // getStockWebsite(){
+        //     const options = {
+        //         method: 'GET',
+        //         url: 'https://yahoo-finance-low-latency.p.rapidapi.com/v11/finance/quoteSummary/' + this.ticker,
+        //         params: {modules: 'defaultKeyStatistics,assetProfile'},
+        //         headers: {
+        //             'x-rapidapi-key': '576a270f4emshce03cc0d892e394p15648fjsnddb66ef301e9',
+        //             'x-rapidapi-host': 'yahoo-finance-low-latency.p.rapidapi.com'
+        //         }
+        //         };
 
-                axios.request(options).then(function (response) {
-                    console.log('does this call work?:' + response.data.quoteSummary.result[0].assetProfile.website)
-                    this.stockWebsite = response.data.quoteSummary.result[0].assetProfile.website;
-                    console.log('success 2');
-                }.bind(this)).catch(function (error) {
-                    console.error(error);
-                });
-        },
+        //         axios.request(options).then(function (response) {
+        //             console.log('does this call work?:' + response.data.quoteSummary.result[0].assetProfile.website)
+        //             this.stockWebsite = response.data.quoteSummary.result[0].assetProfile.website;
+        //             console.log('success 2');
+        //         }.bind(this)).catch(function (error) {
+        //             console.error(error);
+        //         });
+        // },
         getNews(){
             const options = {
                 method: 'GET',
