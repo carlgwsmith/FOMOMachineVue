@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueCurrencyInput from 'vue-currency-input'
+import VUppercase from 'v-uppercase'
+ 
+Vue.use(VUppercase)
 
 Vue.use(VueCurrencyInput)
 
@@ -32,8 +35,8 @@ Vue.filter('truncate', function (text, length, suffix) {
 });
 /** Vue Filters End */
 
-Vue.directive("uppercase", {
-  update: function (el) {
-      el.value = el.value.toUpperCase()
-  }
-})
+// Vue.directive("uppercase", {
+//   update: function (el) {
+//       el.value = el.value.toUpperCase()
+//   }
+// })
